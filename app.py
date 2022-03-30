@@ -1,36 +1,3 @@
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import math
-import numpy as np
-from scipy import signal
-
-
-
-fs=np.pi
-
-N =50
-def DTFT(x,a,b):
-    num =np.array(x)
-    den = np.array([1])
-    ws, h = signal.freqz(num,a=den,whole=True,worN=np.linspace(a,b,512))
-    plt.plot(ws,np.abs(h))
-    plt.title('DTFT Spec')
-    return 
-
-x=np.arange(1,2*N+1,1)  
-y=[np.cos(math.pi*i/2) for i in x]  
-# Omega c -> PI ises
-# Y -> sin(PI * N / 2) / PI * N -> sinc fonksiyonu
-y2 = [np.sin(math.pi*i / 2)/(math.pi*i) for i in x] 
-x2 = np.linspace(-N,N,2*N)
-y2 = np.sinc(x2)
-y2=np.array(y2)
-#Sin Katsayları
-print(y2)
-plt.plot(x,y2)
-
-
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
