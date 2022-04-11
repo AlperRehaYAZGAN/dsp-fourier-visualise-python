@@ -61,7 +61,7 @@ class FS():
     
     def PlotFS(self):
 
-        time = np.linspace(0, self.Cycles, self.Cycles* 70)
+        time = np.linspace(0, self.Cycles, self.Cycles* 140)
         
         fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(80, 60))
         fig.suptitle('Fourier Series', fontsize = 45, fontweight = 'bold')
