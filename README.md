@@ -14,3 +14,4 @@ This is the simple GUI for display DFT with parameterizable inputs with python g
 
 ### GUI  
 ![gui](./docs//dsp-gui.png)
+- Enjoy!

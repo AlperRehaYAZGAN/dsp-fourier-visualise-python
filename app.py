@@ -5,10 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import cm
 from matplotlib.patches import ConnectionPatch
+import os, sys
 
 #%% Class for Fourier Series
 
 class FS():
+
+    Circles = [0,0,0,0,0]
     
     def __init__(self, Circles, Cycles):
         
@@ -66,7 +69,7 @@ class FS():
         fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(80, 60))
         fig.suptitle('Fourier Series', fontsize = 45, fontweight = 'bold')
         
-        color = cm.rainbow( np.linspace(0, 1, self.Circles) )
+        color = cm.rainbow( np.linspace(0, 1, len(self.Circles)) )
         
         for t in time:
             
@@ -80,21 +83,21 @@ class FS():
             
             #%% First plot
             
-            for i, c in zip(range(0, self.Circles), color):
-                xc = self.Xcenter(i, thta)
-                yc = self.Ycenter(i, thta)
-                R  = self.Rds(i)
-                
+            for i, circle_radius, c in zip(range(0,len(self.Circles)),self.Circles, color):
+                xc = self.Xcenter(circle_radius, thta)
+                yc = self.Ycenter(circle_radius, thta)
+                R  = self.Rds(circle_radius)
+
                 crl = plt.Circle((xc, yc), R, color=c, alpha = 0.5, linewidth = 2)
                 axs[0].add_artist(crl)
-                
+
                 if (i > 0):
                     axs[0].plot([xco, xc], [yco, yc], color='b', linewidth = 2)
                 
                 xco = xc
                 yco = yc
                 Ro  = R
-            
+
             axs[0].axis('square')
             axs[0].set_xlim([ -9/np.pi, 9/np.pi ])
             axs[0].set_ylim([ -9/np.pi, 9/np.pi ])
@@ -113,7 +116,7 @@ class FS():
         
             #%% Line
             
-            con = ConnectionPatch( xyA = (t,  yc), xyB = (xc, yc), 
+            con = ConnectionPatch( xyA = (t,  yc), xyB = (xco, yco), 
                                    coordsA = 'data', coordsB = 'data',
                                    axesA = axs[1], axesB = axs[0], 
                                    color = 'red')
@@ -124,7 +127,24 @@ class FS():
 #%% Main
 
 if __name__ == '__main__':
-    
+    # get circle_radius1, circle_radius2, circle_radius3, circle_radius4, circle_radius5 from os.argv
+    # if argv length is not 5, print error message and exit
+    if len(sys.argv) != 6:
+        print('Usage: python app.py circle_radius1 circle_radius2 circle_radius3 circle_radius4 circle_radius5')
+        sys.exit()
+        pass
+
+    circle_radius1 = int(os.sys.argv[1])
+    circle_radius2 = int(os.sys.argv[2])
+    circle_radius3 = int(os.sys.argv[3])
+    circle_radius4 = int(os.sys.argv[4])
+    circle_radius5 = int(os.sys.argv[5])
+
+    circles = [circle_radius1, circle_radius2, circle_radius3, circle_radius4, circle_radius5]
+
+    # sort before using
+    circles.sort()
+
     # Circles, Cycles
-    fs = FS(8, 2)
+    fs = FS(circles, 2)
     fs.PlotFS()
